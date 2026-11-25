@@ -1,24 +1,8 @@
 [
     {
-        "title":  "Angel Of Death",
-        "artist":  "Slayer",
-        "genre":  "",
-        "year":  "1986",
-        "language":  "English",
-        "duet":  false
-    },
-    {
         "title":  "Angel of Death",
         "artist":  "Slayer",
         "genre":  "Thrash Metal",
-        "year":  "1986",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "Raining Blood",
-        "artist":  "Slayer",
-        "genre":  "",
         "year":  "1986",
         "language":  "English",
         "duet":  false
@@ -50,14 +34,6 @@
     {
         "title":  "Being With You",
         "artist":  "Smokey Robinson",
-        "genre":  "R\u0026B",
-        "year":  "1980",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "Being With You",
-        "artist":  "Smokey Robinson",
         "genre":  "",
         "year":  "1981",
         "language":  "English",
@@ -67,14 +43,6 @@
         "title":  "The Tracks of My Tears",
         "artist":  "Smokey Robinson \u0026 The Miracles",
         "genre":  "",
-        "year":  "1965",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "The Tracks Of My Tears",
-        "artist":  "Smokey Robinson \u0026 The Miracles",
-        "genre":  "Soul",
         "year":  "1965",
         "language":  "English",
         "duet":  false
@@ -96,22 +64,6 @@
         "duet":  false
     },
     {
-        "title":  "Kool Thing",
-        "artist":  "Sonic Youth",
-        "genre":  "Alternative Rock",
-        "year":  "1990",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "Teen Age Riot",
-        "artist":  "Sonic Youth",
-        "genre":  "Alternative Rock",
-        "year":  "1988",
-        "language":  "English",
-        "duet":  false
-    },
-    {
         "title":  "Teen Age Riot",
         "artist":  "Sonic Youth",
         "genre":  "Rock Alternativo",
@@ -128,14 +80,6 @@
         "duet":  false
     },
     {
-        "title":  "Make Me Smile (Come Up And See Me)",
-        "artist":  "Steve Harley \u0026 Cockney Rebel",
-        "genre":  "",
-        "year":  "1974",
-        "language":  "English",
-        "duet":  false
-    },
-    {
         "title":  "Make me smile (Come up and see me)",
         "artist":  "Steve Harley \u0026 Cockney Rebel",
         "genre":  "Glam Rock",
@@ -148,14 +92,6 @@
         "artist":  "Sting",
         "genre":  "Rock",
         "year":  "1993",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "Rock This Town",
-        "artist":  "Stray Cats",
-        "genre":  "Rock \u0026 Roll",
-        "year":  "1980",
         "language":  "English",
         "duet":  false
     },
@@ -184,22 +120,6 @@
         "duet":  false
     },
     {
-        "title":  "Santeria",
-        "artist":  "Sublime",
-        "genre":  "Rock",
-        "year":  "1996",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "What I Got",
-        "artist":  "Sublime",
-        "genre":  "",
-        "year":  "1996",
-        "language":  "English",
-        "duet":  false
-    },
-    {
         "title":  "What I got",
         "artist":  "Sublime",
         "genre":  "Rock Alternativo",
@@ -212,22 +132,6 @@
         "artist":  "Sublime",
         "genre":  "Ska Punk",
         "year":  "1996",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "Wrong Way",
-        "artist":  "Sublime",
-        "genre":  "Ska Punk",
-        "year":  "1996",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "The Drowners",
-        "artist":  "Suede",
-        "genre":  "Britpop",
-        "year":  "1992",
         "language":  "English",
         "duet":  false
     },
@@ -251,23 +155,7 @@
         "title":  "Aerials",
         "artist":  "System of a Down",
         "genre":  "",
-        "year":  "2001",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "Aerials",
-        "artist":  "System of a Down",
-        "genre":  "",
         "year":  "2002",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "Atwa",
-        "artist":  "System of a Down",
-        "genre":  "",
-        "year":  "2001",
         "language":  "English",
         "duet":  false
     },
@@ -288,22 +176,6 @@
         "duet":  false
     },
     {
-        "title":  "B.Y.O.B.",
-        "artist":  "System of a Down",
-        "genre":  "",
-        "year":  "2005",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "Chop Suey!",
-        "artist":  "System of a Down",
-        "genre":  "Alternative Metal",
-        "year":  "2001",
-        "language":  "English",
-        "duet":  false
-    },
-    {
         "title":  "Chop Suey!",
         "artist":  "System of a Down",
         "genre":  "Metal Alternativo",
@@ -320,34 +192,10 @@
         "duet":  false
     },
     {
-        "title":  "Hypnotize",
-        "artist":  "System of a Down",
-        "genre":  "",
-        "year":  "2005",
-        "language":  "English",
-        "duet":  false
-    },
-    {
         "title":  "Spiders",
         "artist":  "System of a Down",
         "genre":  "Alternative Metal",
         "year":  "1998",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "Spiders",
-        "artist":  "System of a Down",
-        "genre":  "Alternative Metal",
-        "year":  "1998",
-        "language":  "English",
-        "duet":  false
-    },
-    {
-        "title":  "Toxicity",
-        "artist":  "System of a Down",
-        "genre":  "",
-        "year":  "2001",
         "language":  "English",
         "duet":  false
     },
