@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="UltraStar" />
+  <title>UltraStar Songbook</title>
+  <style>
+    :root { --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --muted: #94a3b8; --accent: #38bdf8; --duet: #c084fc; }
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 16px; padding-top: env(safe-area-inset-top, 20px); padding-bottom: 40px; }
+    header { position: sticky; top: 0; background: var(--bg); padding: 10px 0 12px 0; z-index: 10; border-bottom: 1px solid #334155; }
+    .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    h1 { font-size: 20px; margin: 0; }
+    .actions { display: flex; gap: 8px; align-items: center; }
+    .badge { font-size: 13px; background: var(--card); color: var(--accent); padding: 5px 10px; border-radius: 12px; font-weight: 600; }
+    .rand-btn { background: var(--accent); color: #0f172a; border: none; padding: 5px 10px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    input, select { width: 100%; box-sizing: border-box; padding: 11px 12px; border-radius: 10px; border: 1px solid #334155; background: var(--card); color: var(--text); font-size: 16px; margin-bottom: 8px; }
+    .filters { display: flex; gap: 8px; }
+    .filters select { margin-bottom: 0; }
+    .song-card { background: var(--card); padding: 14px; border-radius: 12px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .song-info { flex: 1; min-width: 0; }
+    .song-title { font-weight: 600; font-size: 16px; margin-bottom: 3px; word-wrap: break-word; }
+    .song-artist { color: var(--accent); font-size: 14px; }
+    .song-meta { color: var(--muted); font-size: 12px; margin-top: 5px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .duet-tag { background: rgba(192, 132, 252, 0.15); color: var(--duet); padding: 2px 6px; border-radius: 6px; font-weight: 600; font-size: 11px; }
+    .fav-btn { background: none; border: 1px solid #334155; color: var(--muted); font-size: 20px; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; flex-shrink: 0; }
+    .fav-btn.active { color: #facc15; border-color: #facc15; background: rgba(250, 204, 21, 0.1); }
+    .empty { text-align: center; color: var(--muted); margin-top: 40px; font-size: 15px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-row">
+      <h1>UltraStar Songbook</h1>
+      <div class="actions">
+        <button class="rand-btn" onclick="pickRandom()">🎲 Random</button>
+        <span class="badge" id="count">Loading...</span>
+      </div>
+    </div>
+    <input type="search" id="search" placeholder="Search artist, title, or year..." autocomplete="off" />
+    <div class="filters">
+      <select id="genreFilter"><option value="">All Genres</option></select>
+      <select id="langFilter"><option value="">All Languages</option></select>
+      <select id="viewFilter">
+        <option value="all">All Songs</option>
+        <option value="favs">★ My Queue</option>
+        <option value="duets">🎤 Duets</option>
+      </select>
+    </div>
+  </header>
+  <div id="list"></div>
+
+  <script>
+    let allSongs = [];
+    let currentFiltered = [];
+    let favorites = JSON.parse(localStorage.getItem('us_favs') || '[]');
+
+    async function init() {
+      try {
+        const res = await fetch('songs.json?t=' + Date.now());
+        allSongs = await res.json();
+        populateSelect('genreFilter', 'genre');
+        populateSelect('langFilter', 'language');
+        render();
+      } catch (e) {
+        document.getElementById('count').textContent = 'No songs.json';
+        document.getElementById('list').innerHTML = '<div class="empty">Run Sync_UltraStar.bat on your PC to upload your song list.</div>';
+      }
+    }
+
+    function populateSelect(elementId, key) {
+      const items = [...new Set(allSongs.map(s => s[key]).filter(Boolean))].sort();
+      const select = document.getElementById(elementId);
+      items.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item; opt.textContent = item;
+        select.appendChild(opt);
+      });
+    }
+
+    function toggleFav(id) {
+      favorites = favorites.includes(id) ? favorites.filter(f => f !== id) : [...favorites, id];
+      localStorage.setItem('us_favs', JSON.stringify(favorites));
+      render();
+    }
+
+    function pickRandom() {
+      if (!currentFiltered.length) return;
+      const pick = currentFiltered[Math.floor(Math.random() * currentFiltered.length)];
+      document.getElementById('search').value = pick.title;
+      render();
+    }
+
+    function render() {
+      const q = document.getElementById('search').value.toLowerCase().trim();
+      const genre = document.getElementById('genreFilter').value;
+      const lang = document.getElementById('langFilter').value;
+      const view = document.getElementById('viewFilter').value;
+
+      currentFiltered = allSongs.filter(s => {
+        const id = `${s.artist}|||${s.title}`;
+        if (view === 'favs' && !favorites.includes(id)) return false;
+        if (view === 'duets' && !s.duet) return false;
+        if (genre && s.genre !== genre) return false;
+        if (lang && s.language !== lang) return false;
+        if (!q) return true;
+        return (s.title && s.title.toLowerCase().includes(q)) ||
+               (s.artist && s.artist.toLowerCase().includes(q)) ||
+               (s.year && s.year.includes(q));
+      });
+
+      document.getElementById('count').textContent = `${currentFiltered.length}`;
+      const list = document.getElementById('list');
+      
+      if (!currentFiltered.length) {
+        list.innerHTML = '<div class="empty">No matching songs found.</div>';
+        return;
+      }
+
+      list.innerHTML = currentFiltered.slice(0, 250).map(s => {
+        const id = `${s.artist}|||${s.title}`;
+        const isFav = favorites.includes(id);
+        const meta = [s.year, s.genre, s.language].filter(Boolean).join(' • ');
+        return `
+          <div class="song-card">
+            <div class="song-info">
+              <div class="song-title">${escapeHtml(s.title)}</div>
+              <div class="song-artist">${escapeHtml(s.artist)}</div>
+              <div class="song-meta">
+                ${s.duet ? '<span class="duet-tag">DUET</span>' : ''}
+                <span>${escapeHtml(meta)}</span>
+              </div>
+            </div>
+            <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFav('${id.replace(/'/g, "\\'")}')">★</button>
+          </div>`;
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+    }
+
+    document.getElementById('search').addEventListener('input', render);
+    document.getElementById('genreFilter').addEventListener('change', render);
+    document.getElementById('langFilter').addEventListener('change', render);
+    document.getElementById('viewFilter').addEventListener('change', render);
+    init();
+  </script>
+</body>
+</html>
